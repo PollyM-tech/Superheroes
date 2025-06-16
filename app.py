@@ -1,5 +1,3 @@
-
-
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
 from models import db, Hero, Power, HeroPower
@@ -15,14 +13,13 @@ migrate = Migrate(app, db)
 def index():
     return '<h1>Welcome to my Superheroes API</h1>'
 
-# GET /heroes
 @app.route('/heroes', methods=['GET'])
 def get_heroes():
     heroes = Hero.query.all()
     response = [hero.to_dict(only=('id', 'name', 'super_name')) for hero in heroes]
     return jsonify(response), 200
 
-# GET /heroes/:id
+
 @app.route('/heroes/<int:id>', methods=['GET'])
 def get_hero_by_id(id):
     hero = Hero.query.get(id)
@@ -31,13 +28,12 @@ def get_hero_by_id(id):
 
     return jsonify(hero.to_dict(rules=('hero_powers', 'hero_powers.power'))), 200
 
-# GET /powers
+
 @app.route('/powers', methods=['GET'])
 def get_powers():
     powers = Power.query.all()
     return jsonify([power.to_dict() for power in powers]), 200
 
-# GET /powers/:id
 @app.route('/powers/<int:id>', methods=['GET'])
 def get_power_by_id(id):
     power = Power.query.get(id)
@@ -46,7 +42,7 @@ def get_power_by_id(id):
 
     return jsonify(power.to_dict()), 200
 
-# PATCH /powers/:id
+
 @app.route('/powers/<int:id>', methods=['PATCH'])
 def update_power(id):
     power = Power.query.get(id)
@@ -64,7 +60,7 @@ def update_power(id):
 
     return jsonify(power.to_dict()), 200
 
-# POST /hero_powers
+
 @app.route('/hero_powers', methods=['POST'])
 def create_hero_power():
     data = request.get_json()

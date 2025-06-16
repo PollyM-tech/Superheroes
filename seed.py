@@ -1,4 +1,3 @@
-# seed.py
 
 from faker import Faker
 from app import app
@@ -38,7 +37,7 @@ with app.app_context():
     print(" Linking heroes with powers...")
     strengths = ["Strong", "Weak", "Average"]
     for hero in heroes:
-        for _ in range(2):  # each hero gets 2 powers
+        for _ in range(2): 
             hp = HeroPower(
                 hero_id=hero.id,
                 power_id=random.choice(powers).id,

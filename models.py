@@ -13,7 +13,6 @@ class Hero(db.Model, SerializerMixin):
 
     hero_powers = db.relationship('HeroPower', backref='hero', cascade='all, delete-orphan')
 
-    # Avoid nesting too deep
     serialize_rules = ('-hero_powers.hero',)
 
     def __repr__(self):
